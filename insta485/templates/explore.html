@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>insta485</title>
+  </head>
+  <body>
+    <a href="/">INSTA485</a>
+    <a href="/explore/">explore | </a>
+    <a href="/users/{{ logname }}/">{{ logname }}</a>
+    <br> <br>
+    {% for fl in not_following %}
+    <a href="/users/{{ fl.username }}/">
+      <img src="/uploads/{{ fl.filename}}" alt="not following" />
+      {{ fl.username }}
+    </a>
+    <form
+      action="/following/?target=/explore/"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input type="submit" name="follow" value="follow" />
+      <input type="hidden" name="username" value="{{fl.username}}" />
+      <input type="hidden" name="operation" value="follow" />
+    </form>
+    {% endfor %}
+  </body>
+</html>

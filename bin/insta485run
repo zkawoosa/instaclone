@@ -1,0 +1,17 @@
+#!/bin/bash
+# insta485db
+
+
+# Stop on errors
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -Eeuo pipefail
+
+npx webpack
+
+if test -f "var/insta485.sqlite3"; then
+    flask --app insta485 --debug run --host 0.0.0.0 --port 8000
+else
+    echo "Error: can't find database var/insta485.sqlite3"
+    echo "Try: ./bin/insta485db create"
+    exit 2
+fi
